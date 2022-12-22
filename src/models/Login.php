@@ -4,8 +4,25 @@ loadModel("User");
 
 class Login extends Model {
 
-    public function checkLogin(){
+    public function validatior() {
+        $errors = [];
+        
+        if (!$this->email) {
+            $errors['email'] = 'E-mail é um campo obrigatório';
+        } 
+        
+        if(!$this->password) {
+            $errors['password'] = 'Senha é um campo obrigatório';
+        } 
+        
+        if(count($errors) > 0){
+            throw new ValidationException($errors);
+            
+        }
+    }
 
+    public function checkLogin(){
+        $this->validatior();
         $user = User::getOne(['email' => $this->email]);
         if ($user) {
 
@@ -15,6 +32,8 @@ class Login extends Model {
 
             if (password_verify($this->password, $user->password)) {
                     return $user;
+            } else {
+                throw new AppException("Senha inválida ");
             }
         }
         throw new AppException("Usuário/Senha inválidos.");

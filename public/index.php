@@ -1,25 +1,20 @@
 <?php 
 
+ini_set('display_errors', '0');
+ini_set('display_startup_errors', '1');
+error_reporting(E_ALL);
 require_once(dirname(__FILE__,2) . '/src/config/config.php');
-//require_once(VIEW_PATH.'/login.php');
-require_once(CONTROLLER_PATH.'/login.php');
 
+$uri = urldecode(
+    parse_url(
+        $_SERVER['REQUEST_URI'],
+        PHP_URL_PATH
 
-//loadView('login',['texto' => 'texto valor']);
+    )
+);
 
+if($uri === '/' || $uri === '' || $uri === '/index.php') {
+    $uri = '/login.php';
+}
 
-
-/*
-require_once(MODEL_PATH.'/Login.php');
-
-$login = new Login([
-    'email' => 'admin@cod3r.com.br',
-    'password' => 'a'
-]);
-
-try {
-    $login->checkLogin();
-    echo 'usuario logado com sucesso:)';
-} catch (Exception $e) {
-    echo $e;
-}*/
+require_once(CONTROLLER_PATH."/{$uri}");

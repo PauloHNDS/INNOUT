@@ -26,12 +26,12 @@
                 <div class="form-group">
                     <label for="email">E-mail:</label>
                     <input type="email" id="email" name="email" placeholder="Digite seu email" 
-                    class="form-control" autofocus value="<?= $email ?>">
+                    class="form-control <?= $exception? 'is-invalid' : '' ?>" autofocus value="<?=$email?>">
                 </div>
                 <div class="form-group">
                     <label for="password">Senha:</label>
                     <input type="password" id="password" name="password" placeholder="Digite sua senha" 
-                    class="form-control">
+                    class="form-control <?= $exception? 'is-invalid' : '' ?>" autofocus value="<?=$email?>">
                 </div>
             </div>
             <div class="card-footer">
